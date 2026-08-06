@@ -1,0 +1,26 @@
+name: mealie
+
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:v2.6.0
+    container_name: mealie
+    networks:
+      - lab
+    restart: always
+    ports:
+      - '9925:9000'
+    deploy:
+      resources:
+        limits:
+          memory: 1000M
+    volumes:
+      - ../data:/app/data/
+    environment:
+      ALLOW_SIGNUP: 'false'
+      PUID: 1000
+      PGID: 1000
+      TZ: America/New_York
+
+networks:
+  lab:
+    external: true
