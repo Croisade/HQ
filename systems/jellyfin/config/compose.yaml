@@ -1,0 +1,22 @@
+name: jellyfin
+
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    networks:
+      - lab
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ../data/config:/config
+      - ../data/cache:/cache
+    ports:
+      - '8096:8096'
+    restart: unless-stopped
+
+networks:
+  lab:
+    external: true

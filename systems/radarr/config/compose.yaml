@@ -1,0 +1,21 @@
+name: radarr
+
+services:
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    networks:
+      - lab
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ../data:/config
+    ports:
+      - '38083:7878'
+    restart: unless-stopped
+
+networks:
+  lab:
+    external: true

@@ -1,0 +1,21 @@
+name: sabnzbd
+
+services:
+  sabnzbd:
+    image: lscr.io/linuxserver/sabnzbd:latest
+    container_name: sabnzbd
+    networks:
+      - lab
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ../data:/config
+    ports:
+      - '38080:8080'
+    restart: unless-stopped
+
+networks:
+  lab:
+    external: true
