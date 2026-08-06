@@ -1,0 +1,9 @@
+.env
+*.env
+!*.env.example
+
+# per-system persistent container data — machine state, not IaC
+systems/*/data/
+
+# internal working notes, not for public consumption
+HANDOFF.md
