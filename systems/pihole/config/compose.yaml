@@ -1,0 +1,31 @@
+name: pihole
+
+services:
+  pihole:
+    image: pihole/pihole:2023.10.0
+    container_name: pihole
+    networks:
+      - lab
+    # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
+    ports:
+      - '192.168.1.101:53:53/tcp'
+      - '192.168.1.101:53:53/udp'
+      - '67:67/udp'
+      - '80:80/tcp'
+    environment:
+      TZ: 'America/New_York'
+      WEBPASSWORD: '${WEBPASSWORD}'
+    dns:
+      - 127.0.0.1
+      - 1.1.1.1
+    volumes:
+      - ../data/etc-pihole:/etc/pihole
+      - ../data/etc-dnsmasq.d:/etc/dnsmasq.d
+    # https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+networks:
+  lab:
+    external: true
