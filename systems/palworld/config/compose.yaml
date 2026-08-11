@@ -1,0 +1,31 @@
+name: palworld
+
+services:
+  palworld:
+    image: thijsvanloef/palworld-server-docker:latest
+    container_name: palworld
+    restart: unless-stopped
+    networks:
+      - lab
+    ports:
+      - '8211:8211/udp'
+      - '27015:27015/udp'
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - PORT=8211
+      - PLAYERS=32
+      - MULTITHREADING=true
+      - RCON_ENABLED=true
+      - RCON_PORT=25575
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - TZ=America/New_York
+      - COMMUNITY=false
+      - UPDATE_ON_BOOT=true
+      - DISABLE_GENERATE_SETTINGS=true
+    volumes:
+      - ../data:/palworld
+
+networks:
+  lab:
+    external: true
