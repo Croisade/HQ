@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Movie collection manager — watches for wanted movies and hands them to `deluge`/`sabnzbd`.
 
-- Web UI: `http://<homelab-server-ip>:38083` or `http://movie.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:38083` or `https://movies.thegarden` (via [traefik](../traefik/README.md))
 
 ## Data
 

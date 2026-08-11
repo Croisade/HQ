@@ -24,7 +24,7 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | `torrents.thegarden` | [deluge](../deluge/README.md) |
 | `usenet.thegarden` | [sabnzbd](../sabnzbd/README.md) |
 | `tv.thegarden` | [sonarr](../sonarr/README.md) |
-| `movie.thegarden` | [radarr](../radarr/README.md) |
+| `movies.thegarden` | [radarr](../radarr/README.md) |
 | `requests.thegarden` | [overseerr](../overseerr/README.md) |
 | `media.thegarden` | [jellyfin](../jellyfin/README.md) |
 | `home.thegarden` | [homarr](../homarr/README.md) |
