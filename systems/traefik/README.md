@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Reverse proxy — routes `*.thegarden` subdomains to the right service by container name instead of by port, using Traefik's Docker provider (label-driven, auto-discovers containers on the `lab` network).
 
-- Dashboard: `http://traefik.thegarden`
+- Dashboard: `https://traefik.thegarden`
 
 Claims host port `80`. [pihole](../pihole/README.md) used to bind host port `80` for its own web UI — that's been removed in favor of routing through Traefik as `pihole.thegarden` instead, so there's no conflict.
 
@@ -32,7 +32,7 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | `budget.thegarden` | [actual-budget](../actual-budget/README.md) |
 | `traefik.thegarden` | traefik's own dashboard |
 
-No TLS yet — everything's plain HTTP on the LAN. Revisit if that stops being acceptable.
+Every router above is HTTPS-only (`entrypoints=websecure` + `tls=true`), via the mkcert internal CA — see [decisions.md](decisions.md). This isn't optional: the `web` entrypoint (`:80`) has a **global redirect to `websecure`** (`--entrypoints.web.http.redirections.entrypoint.to=websecure`), so any router left on plain `web` becomes unreachable by hostname — the redirect sends the browser to `:443`, where there's no matching router, and Traefik 404s. Hit this directly: 8 services were deployed with `entrypoints=web`-only routers and all 404'd until switched to `websecure`+`tls=true`. **Any new `*.thegarden` service must use `websecure`+`tls=true` from the start** (and the mkcert leaf cert needs the new hostname added as a SAN — see [decisions.md](decisions.md)).
 
 ## Data
 

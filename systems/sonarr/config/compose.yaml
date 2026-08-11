@@ -20,7 +20,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.tv.rule=Host(`tv.thegarden`)
-      - traefik.http.routers.tv.entrypoints=web
+      - traefik.http.routers.tv.entrypoints=websecure
+      - traefik.http.routers.tv.tls=true
       - traefik.http.services.tv.loadbalancer.server.port=8989
 
 networks:

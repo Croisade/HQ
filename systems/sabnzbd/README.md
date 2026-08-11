@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Usenet downloader — alternate download client alongside `deluge`, feeding `radarr`/`sonarr`.
 
-- Web UI: `http://<homelab-server-ip>:38080` or `http://usenet.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:38080` or `https://usenet.thegarden` (via [traefik](../traefik/README.md))
 
 ## Data
 

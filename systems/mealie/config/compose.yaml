@@ -23,7 +23,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.recipes.rule=Host(`recipes.thegarden`)
-      - traefik.http.routers.recipes.entrypoints=web
+      - traefik.http.routers.recipes.entrypoints=websecure
+      - traefik.http.routers.recipes.tls=true
       - traefik.http.services.recipes.loadbalancer.server.port=9000
 
 networks:

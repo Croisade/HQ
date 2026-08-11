@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 BitTorrent client (`binhex/arch-delugevpn`), routed through a PIA VPN — traffic only leaves the container over the VPN tunnel (`NET_ADMIN` + `STRICT_PORT_FORWARD`).
 
-- Web UI: `http://<homelab-server-ip>:8112` or `http://torrents.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:8112` or `https://torrents.thegarden` (via [traefik](../traefik/README.md))
 - Ports: `8112` (web), `8118` (privoxy), `58846`/`58946` (daemon/incoming)
 
 ## Config

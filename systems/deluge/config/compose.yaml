@@ -39,7 +39,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.torrents.rule=Host(`torrents.thegarden`)
-      - traefik.http.routers.torrents.entrypoints=web
+      - traefik.http.routers.torrents.entrypoints=websecure
+      - traefik.http.routers.torrents.tls=true
       - traefik.http.services.torrents.loadbalancer.server.port=8112
 
 networks:

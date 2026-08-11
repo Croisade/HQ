@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 TV collection manager — watches for wanted episodes and hands them to `deluge`/`sabnzbd`.
 
-- Web UI: `http://<homelab-server-ip>:38082` or `http://tv.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:38082` or `https://tv.thegarden` (via [traefik](../traefik/README.md))
 
 ## Data
 

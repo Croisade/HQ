@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Homepage dashboard with Docker integration (auto-discovers running containers) — the lab's dashboard.
 
-- Web UI: `http://<homelab-server-ip>:7575` or `http://home.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:7575` or `https://home.thegarden` (via [traefik](../traefik/README.md))
 
 ## Config
 

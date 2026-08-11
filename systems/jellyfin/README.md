@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Media server — plays the library that `radarr`/`sonarr`/`deluge`/`sabnzbd` build up. Chosen over Plex (open source, no account/telemetry requirement).
 
-- Web UI: `http://<homelab-server-ip>:8096` or `http://media.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:8096` or `https://media.thegarden` (via [traefik](../traefik/README.md))
 
 No GPU passthrough configured yet — transcoding runs on CPU. Revisit if playback needs outpace this box.
 

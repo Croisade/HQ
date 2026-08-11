@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Network-wide DNS + ad blocking.
 
-- Web UI: `http://pihole.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `https://pihole.thegarden` (via [traefik](../traefik/README.md))
 - DNS: binds to `192.168.1.101:53` (tcp/udp) — updated from the migrated config's stale `192.168.0.104`, which doesn't exist on this network
 - DHCP: `67/udp` exposed but not enabled by default — see the image's docs if you want Pi-hole handling DHCP too
 

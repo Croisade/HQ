@@ -20,7 +20,8 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.media.rule=Host(`media.thegarden`)
-      - traefik.http.routers.media.entrypoints=web
+      - traefik.http.routers.media.entrypoints=websecure
+      - traefik.http.routers.media.tls=true
       - traefik.http.services.media.loadbalancer.server.port=8096
 
 networks:

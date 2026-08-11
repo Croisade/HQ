@@ -6,7 +6,7 @@ Host: [homelab-server](../homelab-server/README.md)
 
 Recipe manager / meal planner.
 
-- Web UI: `http://<homelab-server-ip>:9925` or `http://recipes.thegarden` (via [traefik](../traefik/README.md))
+- Web UI: `http://<homelab-server-ip>:9925` or `https://recipes.thegarden` (via [traefik](../traefik/README.md))
 
 Signup is disabled (`ALLOW_SIGNUP=false`) — create the first account before that lands, or flip it temporarily.
 
