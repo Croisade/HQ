@@ -1,0 +1,17 @@
+name: restic
+
+services:
+  restic:
+    image: mazzolino/restic
+    container_name: restic
+    volumes:
+      - ../..:/backup-source/systems:ro
+      - /mnt/docker-data/backups/restic:/repository
+    environment:
+      TZ: 'America/New_York'
+      RESTIC_REPOSITORY: /repository
+      RESTIC_PASSWORD: '${RESTIC_PASSWORD}'
+      RESTIC_BACKUP_SOURCES: /backup-source/systems
+      RESTIC_FORGET_ARGS: '--keep-daily 7 --keep-weekly 4 --keep-monthly 6 --prune'
+      BACKUP_CRON: '0 3 * * *'
+    restart: unless-stopped

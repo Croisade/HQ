@@ -1,12 +1,12 @@
 # overseerr
 
-Status: Building
+Status: Operational
 
 Host: [homelab-server](../homelab-server/README.md)
 
 Request management frontend — users request movies/shows here, Overseerr forwards to `radarr`/`sonarr`.
 
-- Web UI: `http://<homelab-server-ip>:5055`
+- Web UI: `http://<homelab-server-ip>:5055` or `http://requests.thegarden` (via [traefik](../traefik/README.md))
 
 ## Data
 

@@ -12,7 +12,14 @@ All workload containers join the shared `lab` bridge network (`scripts/create-ne
 
 ## Storage
 
-No shared media library yet — a NAS is coming. Media-related services (`deluge`, `radarr`, `sonarr`, `sabnzbd`, `jellyfin`) don't have a media volume mounted until it arrives.
+The [nas](../nas/README.md) (`192.168.1.156`) provides two NFSv4 exports, mounted persistently via `/etc/fstab`:
+
+- `/mnt/docker-data` (pool `Triple-Towers`) — bulk media library and other important files. `media/movies`, `media/tv` used by `radarr`/`sonarr`/`jellyfin`; `backups/restic` is the [restic](../restic/README.md) repository target.
+- `/mnt/docker-scratch` (pool `Storage`) — temp/disposable data. `downloads/torrents`, `downloads/usenet` used by `deluge`/`sabnzbd` as download staging.
+
+Both mounts are chowned to `jamal` (uid/gid `1000`) on the host, matching the `PUID`/`PGID=1000` every media-stack container runs as. Downloads and finished media live on separate NAS filesystems by design (temp/scratch vs. main), so `radarr`/`sonarr` import by copy+delete rather than hardlink — see [decisions.md](decisions.md).
+
+Per-service `data/` stays on this host's local disk rather than the NAS — see [decisions.md](decisions.md).
 
 ## Workloads
 

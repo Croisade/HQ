@@ -12,9 +12,16 @@ services:
       - TZ=America/New_York
     volumes:
       - ../data:/config
+      - /mnt/docker-data/media/tv:/tv
+      - /mnt/docker-scratch/downloads:/downloads
     ports:
       - '38082:8989'
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tv.rule=Host(`tv.thegarden`)
+      - traefik.http.routers.tv.entrypoints=web
+      - traefik.http.services.tv.loadbalancer.server.port=8989
 
 networks:
   lab:

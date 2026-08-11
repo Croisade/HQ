@@ -13,9 +13,15 @@ services:
     volumes:
       - ../data/config:/config
       - ../data/cache:/cache
+      - /mnt/docker-data/media:/media:ro
     ports:
       - '8096:8096'
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.media.rule=Host(`media.thegarden`)
+      - traefik.http.routers.media.entrypoints=web
+      - traefik.http.services.media.loadbalancer.server.port=8096
 
 networks:
   lab:

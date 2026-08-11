@@ -12,9 +12,16 @@ services:
       - TZ=America/New_York
     volumes:
       - ../data:/config
+      - /mnt/docker-data/media/movies:/movies
+      - /mnt/docker-scratch/downloads:/downloads
     ports:
       - '38083:7878'
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.movie.rule=Host(`movie.thegarden`)
+      - traefik.http.routers.movie.entrypoints=web
+      - traefik.http.services.movie.loadbalancer.server.port=7878
 
 networks:
   lab:

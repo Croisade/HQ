@@ -12,9 +12,15 @@ services:
       - TZ=America/New_York
     volumes:
       - ../data:/config
+      - /mnt/docker-scratch/downloads/usenet:/downloads
     ports:
       - '38080:8080'
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.usenet.rule=Host(`usenet.thegarden`)
+      - traefik.http.routers.usenet.entrypoints=web
+      - traefik.http.services.usenet.loadbalancer.server.port=8080
 
 networks:
   lab:

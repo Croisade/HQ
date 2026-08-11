@@ -14,7 +14,7 @@ services:
       - '58846:58846'
       - '58946:58946'
     volumes:
-      - ../data/data:/data
+      - /mnt/docker-scratch/downloads/torrents:/data
       - ../data/config:/config
       - /etc/localtime:/etc/localtime:ro
     environment:
@@ -36,6 +36,11 @@ services:
       - PUID=0
       - PGID=0
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.torrents.rule=Host(`torrents.thegarden`)
+      - traefik.http.routers.torrents.entrypoints=web
+      - traefik.http.services.torrents.loadbalancer.server.port=8112
 
 networks:
   lab:

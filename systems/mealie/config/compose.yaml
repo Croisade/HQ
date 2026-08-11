@@ -20,6 +20,11 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: America/New_York
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.recipes.rule=Host(`recipes.thegarden`)
+      - traefik.http.routers.recipes.entrypoints=web
+      - traefik.http.services.recipes.loadbalancer.server.port=9000
 
 networks:
   lab:
