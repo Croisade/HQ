@@ -2,7 +2,7 @@ name: pihole
 
 services:
   pihole:
-    image: pihole/pihole:2023.10.0
+    image: pihole/pihole:2026.07.2
     container_name: pihole
     networks:
       - lab
@@ -15,7 +15,8 @@ services:
       - '67:67/udp'
     environment:
       TZ: 'America/New_York'
-      WEBPASSWORD: '${WEBPASSWORD}'
+      FTLCONF_webserver_api_password: '${WEBPASSWORD}'
+      FTLCONF_misc_etc_dnsmasq_d: 'true'
     dns:
       - 127.0.0.1
       - 1.1.1.1
