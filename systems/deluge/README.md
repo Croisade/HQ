@@ -1,6 +1,6 @@
 # deluge
 
-Status: Building
+Status: Operational
 
 Host: [homelab-server](../homelab-server/README.md)
 
@@ -15,9 +15,11 @@ VPN credentials live in `config/.env` (gitignored — real PIA username/password
 
 `LAN_NETWORK` is set to `192.168.1.0/24` to match this host's actual LAN — the original config this was migrated from used `192.168.0.0/24`, which was wrong for this network.
 
+VPN server region is PIA Toronto (`data/config/openvpn/ca_toronto-*.ovpn`), not the geographically nearer New York — PIA no longer supports port forwarding on any US endpoint, and `STRICT_PORT_FORWARD=yes` means an unsupported region loops forever instead of starting. Toronto/Montreal are the closest endpoints that do support it.
+
 ## Data
 
 - `data/config` — Deluge app config, incl. `openvpn/*.ovpn` (gitignored)
 - `/mnt/docker-scratch/downloads/torrents` ([nas](../nas/README.md)) → `/data` — download staging
 
-See [notes.md](notes.md) for the current startup blocker.
+See [notes.md](notes.md) for history on the three startup blockers hit and fixed.
