@@ -21,6 +21,7 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | Subdomain | Service |
 |---|---|
 | `pihole.thegarden` | [pihole](../pihole/README.md) |
+| `assistant.thegarden` | [home-assistant](../home-assistant/README.md) — file provider, not a Docker label (host-networked, not on the `lab` network) |
 | `torrents.thegarden` | [deluge](../deluge/README.md) |
 | `usenet.thegarden` | [sabnzbd](../sabnzbd/README.md) |
 | `tv.thegarden` | [sonarr](../sonarr/README.md) |

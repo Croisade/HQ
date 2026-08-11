@@ -1,0 +1,14 @@
+http:
+  routers:
+    assistant:
+      rule: Host(`assistant.thegarden`)
+      entryPoints:
+        - websecure
+      tls: {}
+      service: assistant
+
+  services:
+    assistant:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.101:8123
