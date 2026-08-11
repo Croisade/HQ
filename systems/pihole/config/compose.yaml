@@ -7,11 +7,12 @@ services:
     networks:
       - lab
     # For DHCP it is recommended to remove these ports and instead add: network_mode: "host"
+    # Host port 80 intentionally not bound here anymore — traefik claims it, and
+    # routes to this container's web UI as pihole.thegarden instead.
     ports:
       - '192.168.1.101:53:53/tcp'
       - '192.168.1.101:53:53/udp'
       - '67:67/udp'
-      - '80:80/tcp'
     environment:
       TZ: 'America/New_York'
       WEBPASSWORD: '${WEBPASSWORD}'
@@ -21,10 +22,17 @@ services:
     volumes:
       - ../data/etc-pihole:/etc/pihole
       - ../data/etc-dnsmasq.d:/etc/dnsmasq.d
+      - ../config/dnsmasq.d/05-thegarden.conf:/etc/dnsmasq.d/05-thegarden.conf:ro
     # https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
     cap_add:
       - NET_ADMIN
     restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pihole.rule=Host(`pihole.thegarden`)
+      - traefik.http.routers.pihole.entrypoints=websecure
+      - traefik.http.routers.pihole.tls=true
+      - traefik.http.services.pihole.loadbalancer.server.port=80
 
 networks:
   lab:

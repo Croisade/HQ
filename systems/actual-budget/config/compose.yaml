@@ -1,0 +1,23 @@
+name: actual-budget
+
+services:
+  actual-budget:
+    image: docker.io/actualbudget/actual-server:latest
+    container_name: actual-budget
+    networks:
+      - lab
+    restart: unless-stopped
+    ports:
+      - '5006:5006'
+    volumes:
+      - ../data:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.budget.rule=Host(`budget.thegarden`)
+      - traefik.http.routers.budget.entrypoints=websecure
+      - traefik.http.routers.budget.tls=true
+      - traefik.http.services.budget.loadbalancer.server.port=5006
+
+networks:
+  lab:
+    external: true
