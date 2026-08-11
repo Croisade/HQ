@@ -1,17 +1,16 @@
-name: overseerr
+name: jellyseerr
 
 services:
-  overseerr:
-    image: lscr.io/linuxserver/overseerr:latest
-    container_name: overseerr
+  jellyseerr:
+    image: fallenbagel/jellyseerr:latest
+    container_name: jellyseerr
     networks:
       - lab
     environment:
-      - PUID=1000
-      - PGID=1000
+      - LOG_LEVEL=info
       - TZ=America/New_York
     volumes:
-      - ../data:/config
+      - ../data:/app/config
     ports:
       - '5055:5055'
     restart: unless-stopped

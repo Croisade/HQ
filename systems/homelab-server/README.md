@@ -29,7 +29,7 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [sabnzbd](../sabnzbd/README.md) — usenet downloader
 - [radarr](../radarr/README.md) — movie collection manager
 - [sonarr](../sonarr/README.md) — TV collection manager
-- [overseerr](../overseerr/README.md) — request management frontend
+- [jellyseerr](../jellyseerr/README.md) — request management frontend
 - [jellyfin](../jellyfin/README.md) — media server
 - [pihole](../pihole/README.md) — DNS + ad blocking, authoritative for the `thegarden` domain
 - [homarr](../homarr/README.md) — dashboard
