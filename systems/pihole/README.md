@@ -18,6 +18,10 @@ Host port `80` used to be bound here for the web UI; that's been removed since [
 
 **DNS for `thegarden`**: `config/dnsmasq.d/05-thegarden.conf` adds a wildcard record (`address=/thegarden/192.168.1.101`) so any `*.thegarden` lookup resolves to this host, where traefik does the actual routing. For this to work LAN-wide, the [udm-se](../udm-se/README.md)'s DHCP needs to hand out this host's IP as the DNS server instead of its own default — a manual step in the UniFi controller, not something this repo can apply.
 
+**Local DNS records for non-web devices**: for things that aren't traefik-routed HTTP services (their own IP, own UI/protocol), a plain A record is added instead of relying on the `thegarden` wildcard — via `pihole restartdns reload` after editing `/etc/pihole/custom.list` inside the container. Not tracked as repo IaC (lives in `data/etc-pihole`, Pi-hole's own managed state, gitignored) — current entries:
+- `storage.thegarden` → `192.168.1.156` ([nas](../nas/README.md))
+- `udm.thegarden` → `192.168.1.1` ([udm-se](../udm-se/README.md))
+
 ## Data
 
 - `data/etc-pihole` — Pi-hole state/blocklists
