@@ -2,8 +2,9 @@ name: jellyseerr
 
 services:
   jellyseerr:
-    image: fallenbagel/jellyseerr:latest
+    image: ghcr.io/seerr-team/seerr:latest
     container_name: jellyseerr
+    init: true
     networks:
       - lab
     environment:
