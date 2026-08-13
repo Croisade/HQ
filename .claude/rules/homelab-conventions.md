@@ -14,6 +14,12 @@ Pick files based on the system's flavor (see `CLAUDE.md`), and only create a fil
 - `Degraded` — running but with a known problem; note it in `notes.md`.
 - `Retired` — decommissioned; keep the folder for history, don't delete it.
 
+## Public vs private notes
+
+This repo is public — `notes.md` ships with it, so write it assuming a stranger (a recruiter, a random GitHub visitor) will read it. `greenhouse.md` is its gitignored twin, same date-headered lab-notebook format, for anything that doesn't belong in public: exact geographic location, household/family detail, a credential that got pasted into a raw debugging transcript, or just unfiltered venting about a bad afternoon. When something is borderline, default to writing it in `greenhouse.md` first — it's easy to promote a note into `notes.md` later once you've confirmed it's safe, much harder to un-publish it.
+
+Same rule as every other optional file: only create `greenhouse.md` once it has real content to hold.
+
 ## Plans and history
 
 A `plan.md` is live direction — it should read as a checklist you're actively executing. Once the plan is done, move its content into `build-log.md` (create it if it doesn't exist) and delete `plan.md`. Don't let a finished plan linger as if it's still in flight.

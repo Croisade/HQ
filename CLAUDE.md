@@ -16,6 +16,7 @@ Dual-role systems (a VM that's both a workload and a host to other workloads) co
 - `hardware.md` (required for physical hosts; recommended for VMs)
 - `software.md`, `deployment.md`, `runbook.md` (optional)
 - `notes.md` — lab notebook, date-headered entries, newest first
+- `greenhouse.md` — private counterpart to `notes.md` (gitignored, same format) — see homelab-conventions.md
 - `plan.md` — active direction with an execution checklist
 - `build-log.md` — historical record, written once a plan completes
 - `decisions.md` — one-liner decision log
@@ -26,6 +27,8 @@ Dual-role systems (a VM that's both a workload and a host to other workloads) co
 Only create a file when it has real content. No empty stubs.
 
 ## Key conventions
+
+**This repo is public.** Assume any tracked file is visible to anyone — no real credentials (use `.env`, gitignored), no exact home address/location, no household/family detail. Anything like that goes in `greenhouse.md` instead of `notes.md`.
 
 **Status line** appears below each system's title:
 `Status: Planned | Building | Operational | Degraded | Retired`
