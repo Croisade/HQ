@@ -1,0 +1,24 @@
+name: glances
+
+services:
+  glances:
+    image: nicolargo/glances:latest
+    container_name: glances
+    restart: unless-stopped
+    # Needed for accurate host-level (not container-level) CPU/mem/process
+    # stats, and for network_mode: host below so interface stats reflect
+    # the real host NICs rather than the container's own virtual one.
+    pid: host
+    network_mode: host
+    read_only: true
+    tmpfs:
+      - /tmp
+    volumes:
+      # Read-only host root, so disk-usage stats reflect the real host
+      # filesystems rather than just the container's own overlay.
+      - /:/rootfs:ro
+    environment:
+      # -w: run in web-server mode, exposing the REST API Homarr's
+      # Health Monitoring / System Resources widgets read from.
+      - GLANCES_OPT=-w
+      - TZ=America/New_York
