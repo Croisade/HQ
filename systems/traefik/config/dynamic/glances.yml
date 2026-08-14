@@ -1,0 +1,14 @@
+http:
+  routers:
+    glances:
+      rule: Host(`glances.thegarden`)
+      entryPoints:
+        - websecure
+      tls: {}
+      service: glances
+
+  services:
+    glances:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.101:61208
