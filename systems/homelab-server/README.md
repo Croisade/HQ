@@ -39,3 +39,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [traefik](../traefik/README.md) — reverse proxy, routes `*.thegarden` to the above by container name
 - [restic](../restic/README.md) — scheduled backups of every service's local `data/` to the NAS
 - [glances](../glances/README.md) — host stats backend for homarr, host networking
+- [bindery](../bindery/README.md) — book/light-novel collection manager

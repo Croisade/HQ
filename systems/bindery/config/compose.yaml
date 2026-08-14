@@ -1,0 +1,36 @@
+name: bindery
+
+services:
+  bindery:
+    image: ghcr.io/vavallee/bindery:latest
+    container_name: bindery
+    networks:
+      - lab
+    user: "1000:1000"
+    environment:
+      - BINDERY_PUID=1000
+      - BINDERY_PGID=1000
+      - TZ=America/New_York
+      # sabnzbd/deluge each only see their own subfolder (/downloads,
+      # /data respectively) and report completed-download paths relative
+      # to that view. Bindery mounts the shared parent dir instead (see
+      # volumes below), so those paths need rewriting to match — same
+      # remap radarr/sonarr use via their own Remote Path Mappings.
+      - BINDERY_DOWNLOAD_PATH_REMAP=/downloads:/downloads/usenet,/data:/downloads/torrents
+    volumes:
+      - ../data:/config
+      - /mnt/docker-data/media/books:/books
+      - /mnt/docker-scratch/downloads:/downloads
+    ports:
+      - '38084:8787'
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.books.rule=Host(`books.thegarden`)
+      - traefik.http.routers.books.entrypoints=websecure
+      - traefik.http.routers.books.tls=true
+      - traefik.http.services.books.loadbalancer.server.port=8787
+
+networks:
+  lab:
+    external: true

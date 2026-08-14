@@ -12,7 +12,7 @@ TrueNAS box, first physical hardware in the lab outside [homelab-server](../home
 
 ## Consumers
 
-- [radarr](../radarr/README.md), [sonarr](../sonarr/README.md), [jellyfin](../jellyfin/README.md) — `docker-data/media`
+- [radarr](../radarr/README.md), [sonarr](../sonarr/README.md), [jellyfin](../jellyfin/README.md), [bindery](../bindery/README.md) — `docker-data/media`
 - [deluge](../deluge/README.md), [sabnzbd](../sabnzbd/README.md) — `docker-scratch/downloads`
 - [restic](../restic/README.md) — `docker-data/backups/restic` (backup repository target)
 
