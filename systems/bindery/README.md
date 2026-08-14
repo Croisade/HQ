@@ -1,10 +1,10 @@
 # bindery
 
-Status: Building
+Status: Operational
 
 Host: [homelab-server](../homelab-server/README.md)
 
-Book/light-novel collection manager — monitors authors/series, searches indexers, and hands wanted downloads to `sabnzbd`. Replaces [Readarr](https://wiki.servarr.com/readarr), which was officially retired in 2026 after its metadata source became unusable; Bindery is purpose-built as its usenet-native successor.
+Book/light-novel collection manager — monitors authors/series, searches indexers, and hands wanted downloads to `sabnzbd`/`deluge`. Replaces [Readarr](https://wiki.servarr.com/readarr), which was officially retired in 2026 after its metadata source became unusable.
 
 - Web UI: `http://<homelab-server-ip>:38084` or `https://books.thegarden` (via [traefik](../traefik/README.md))
 
@@ -18,8 +18,10 @@ Unlike the `linuxserver/*` images used elsewhere in this lab, Bindery's official
 
 **Path mapping**: `sabnzbd` and `deluge` each only mount their own subfolder (`/downloads` and `/data` respectively — see their own READMEs), so a completed-download path reported by either client's API is relative to *that* client's own filesystem view, not Bindery's shared `/downloads` mount. `BINDERY_DOWNLOAD_PATH_REMAP=/downloads:/downloads/usenet,/data:/downloads/torrents` rewrites those paths to Bindery's view — the same translation `radarr`'s `RemotePathMappings` table does for the same reason (verified against its actual mapping rows: `/downloads`→`/downloads/usenet`, `/data`→`/downloads/torrents`).
 
-`sabnzbd` is wired up as a download client (category `books`, added to `sabnzbd`'s config alongside its existing `movies`/`tv`/`audio`/`software` categories) and connection-tested successfully via Bindery's API. `sabnzbd`'s `host_whitelist` needed the `sabnzbd` container hostname added — it only allowed its own container ID and `usenet.thegarden` before. `deluge` is not yet added as a download client (no torrent indexers configured yet) — the path remap above is already in place for whenever it is.
+Both download clients are wired up and connection-tested via Bindery's API:
+- `sabnzbd` — category `books`, added to `sabnzbd`'s config alongside its existing `movies`/`tv`/`audio`/`software` categories. `sabnzbd`'s `host_whitelist` needed the `sabnzbd` container hostname added — it only allowed its own container ID and `usenet.thegarden` before.
+- `deluge` — labels `books`/`audiobooks` added to Deluge's Label plugin, which only had `movies`/`tv` before (same missing-category problem as `sabnzbd`, different mechanism — Deluge tags via labels, not a `dir`-per-category setting).
 
-Indexer setup happens in the web UI (Settings → Indexers) — deliberately left to the user rather than pulled from `radarr`/`sonarr`'s existing indexer credentials.
+**Indexers**: one usenet indexer is left for the user to add directly in Settings → Indexers, deliberately not pulled from `radarr`/`sonarr`'s existing indexer credentials. For torrents, see [prowlarr](../prowlarr/README.md) — it manages Nyaa.si (the actual torrent source for Japanese light novels) and Bindery consumes it via Prowlarr's per-indexer Torznab feed, added manually as a `torznab`-type indexer here since Prowlarr has no native Bindery application type to auto-sync it.
 
 Metadata coverage for Japanese light novels is the open question this deployment exists to test — worth a `notes.md` entry once there's been a real search/import to judge it by.
