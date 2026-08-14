@@ -1,0 +1,27 @@
+name: prowlarr
+
+services:
+  prowlarr:
+    image: linuxserver/prowlarr
+    container_name: prowlarr
+    networks:
+      - lab
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ../data:/config
+    ports:
+      - '38085:9696'
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.indexers.rule=Host(`indexers.thegarden`)
+      - traefik.http.routers.indexers.entrypoints=websecure
+      - traefik.http.routers.indexers.tls=true
+      - traefik.http.services.indexers.loadbalancer.server.port=9696
+
+networks:
+  lab:
+    external: true

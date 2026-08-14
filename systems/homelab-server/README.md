@@ -40,3 +40,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [restic](../restic/README.md) — scheduled backups of every service's local `data/` to the NAS
 - [glances](../glances/README.md) — host stats backend for homarr, host networking
 - [bindery](../bindery/README.md) — book/light-novel collection manager
+- [prowlarr](../prowlarr/README.md) — indexer manager, syncs to radarr/sonarr
