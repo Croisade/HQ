@@ -1,0 +1,5 @@
+# Decisions
+
+- **2026-08-19** — HDHomeRun Flex Duo (2 tuners) over the Flex Quatro (4) or Flex 4K (ATSC 3.0). No DVR/recording planned, just live viewing — 2 simultaneous streams covers watching different channels on 2 devices at once, which is the realistic ceiling for this household. ATSC 3.0 support wasn't worth paying for without a confirmed local need for it.
+- **2026-08-19** — Non-amplified indoor antenna (Channel Master Flatenna 35) over an amplified or attic/roof-mounted one. TV Fool signal survey showed line-of-sight reception at 6.5 miles with noise margins well above the "indoor antenna sufficient" threshold for every major network affiliate — amplification would risk overpowering/distorting a signal that's already strong, not help it.
+- **2026-08-19** — Skipping Schedules Direct (~$25/yr guide data service) for now. No DVR means no scheduling dependency on a program grid; channels get selected directly rather than browsed. Revisit if that stops being convenient enough in practice.

@@ -10,6 +10,8 @@ Media server — plays the library that `radarr`/`sonarr`/`deluge`/`sabnzbd` bui
 
 No GPU passthrough configured yet — transcoding runs on CPU. Revisit if playback needs outpace this box.
 
+Live TV planned via [hdhomerun](../hdhomerun/README.md) — not set up yet, see that system's `plan.md`.
+
 ## Data
 
 - `data/config` — Jellyfin app config (gitignored)
