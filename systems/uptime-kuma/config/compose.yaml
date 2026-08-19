@@ -1,0 +1,27 @@
+name: uptime-kuma
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:2
+    container_name: uptime-kuma
+    networks:
+      - lab
+    environment:
+      - TZ=America/New_York
+    volumes:
+      # Local disk, not the NAS — SQLite-backed, same NFS-intolerance rule
+      # as every other app here (see homelab-server's decisions.md).
+      - ../data:/app/data
+    ports:
+      - '3001:3001'
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.uptime.rule=Host(`uptime.thegarden`)
+      - traefik.http.routers.uptime.entrypoints=websecure
+      - traefik.http.routers.uptime.tls=true
+      - traefik.http.services.uptime.loadbalancer.server.port=3001
+
+networks:
+  lab:
+    external: true

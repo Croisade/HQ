@@ -36,6 +36,7 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | `books.thegarden` | [bindery](../bindery/README.md) |
 | `indexers.thegarden` | [prowlarr](../prowlarr/README.md) |
 | `photos.thegarden` | [immich](../immich/README.md) |
+| `uptime.thegarden` | [uptime-kuma](../uptime-kuma/README.md) |
 
 Every router above is HTTPS-only (`entrypoints=websecure` + `tls=true`), via the mkcert internal CA — see [decisions.md](decisions.md). This isn't optional: the `web` entrypoint (`:80`) has a **global redirect to `websecure`** (`--entrypoints.web.http.redirections.entrypoint.to=websecure`), so any router left on plain `web` becomes unreachable by hostname — the redirect sends the browser to `:443`, where there's no matching router, and Traefik 404s. Hit this directly: 8 services were deployed with `entrypoints=web`-only routers and all 404'd until switched to `websecure`+`tls=true`. **Any new `*.thegarden` service must use `websecure`+`tls=true` from the start** (and the mkcert leaf cert needs the new hostname added as a SAN — see [decisions.md](decisions.md)).
 

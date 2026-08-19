@@ -43,3 +43,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [prowlarr](../prowlarr/README.md) — indexer manager, syncs to radarr/sonarr
 - [tailscale](../tailscale/README.md) — mesh VPN for remote access, installed on the host directly (not containerized)
 - [immich](../immich/README.md) — photo/video library, Google Photos replacement
+- [uptime-kuma](../uptime-kuma/README.md) — service monitoring and downtime alerting
