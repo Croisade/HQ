@@ -1,0 +1,15 @@
+name: node-exporter
+
+services:
+  node-exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node-exporter
+    command:
+      - '--path.rootfs=/host'
+    # host networking + pid required for real host-level metrics instead of
+    # this container's own cgroup-scoped view — same reasoning as glances.
+    network_mode: host
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'

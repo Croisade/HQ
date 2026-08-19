@@ -44,3 +44,6 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [tailscale](../tailscale/README.md) — mesh VPN for remote access, installed on the host directly (not containerized)
 - [immich](../immich/README.md) — photo/video library, Google Photos replacement
 - [uptime-kuma](../uptime-kuma/README.md) — service monitoring and downtime alerting
+- [node-exporter](../node-exporter/README.md) — host metrics for prometheus, host networking
+- [prometheus](../prometheus/README.md) — metrics database
+- [grafana](../grafana/README.md) — dashboards and alerting on top of prometheus

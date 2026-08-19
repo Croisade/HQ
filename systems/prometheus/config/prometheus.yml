@@ -1,0 +1,19 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+
+  - job_name: homelab-server
+    static_configs:
+      - targets: ['192.168.1.101:9100']
+
+  # Personal PC (windows_exporter, default port 9182) — not added yet, needs
+  # windows_exporter installed and running there first. Reachable either via
+  # its LAN IP or its tailscale IP (100.107.65.7 as of 2026-08-19, see
+  # tailscale status) if it's off the LAN when scraped. Uncomment once ready:
+  # - job_name: personal-pc
+  #   static_configs:
+  #     - targets: ['100.107.65.7:9182']
