@@ -41,3 +41,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [glances](../glances/README.md) — host stats backend for homarr, host networking
 - [bindery](../bindery/README.md) — book/light-novel collection manager
 - [prowlarr](../prowlarr/README.md) — indexer manager, syncs to radarr/sonarr
+- [tailscale](../tailscale/README.md) — mesh VPN for remote access, installed on the host directly (not containerized)
