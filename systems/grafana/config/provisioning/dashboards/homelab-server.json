@@ -199,11 +199,12 @@
     {
       "type": "timeseries",
       "title": "Per-Container Memory (top 10)",
+      "description": "working_set_bytes, not usage_bytes — usage_bytes includes reclaimable page cache (e.g. restic's file I/O during a backup stays cached long after the backup finishes) and overstates real memory pressure. working_set_bytes excludes it, matching what `docker stats`/Docker itself report.",
       "gridPos": { "h": 10, "w": 24, "x": 0, "y": 24 },
       "id": 8,
       "targets": [
         {
-          "expr": "topk(10, container_memory_usage_bytes{name!=\"\"})",
+          "expr": "topk(10, container_memory_working_set_bytes{name!=\"\"})",
           "legendFormat": "{{name}}",
           "refId": "A"
         }
