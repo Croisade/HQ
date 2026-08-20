@@ -11,7 +11,7 @@ import:
   incremental: yes
   log: /config/import.log
 
-plugins: chroma musicbrainz
+plugins: chroma musicbrainz web
 
 chroma:
   acoustid_apikey: CHANGE_ME
