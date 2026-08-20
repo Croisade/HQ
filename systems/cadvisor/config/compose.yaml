@@ -4,6 +4,8 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:latest
     container_name: cadvisor
+    command:
+      - '--docker_only=true'
     networks:
       - lab
     volumes:

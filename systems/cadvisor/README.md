@@ -12,6 +12,12 @@ No web UI exposed — read through Grafana's `homelab-server Overview` dashboard
 
 On the `lab` network only, no host port published — [prometheus](../prometheus/README.md) reaches it by container name (`cadvisor:8080`), not via `localhost`.
 
+## Resource tuning
+
+By default cAdvisor monitors *every* cgroup on the host, not just Docker containers — every systemd service/slice too. On first deploy this meant tracking ~80 cgroups instead of the ~30 real containers, driving cAdvisor's own usage to 7%+ CPU and **1.1GiB memory** (heavier than most of what it was monitoring). Fixed with `--docker_only=true`: dropped to ~30 tracked containers, **4% CPU, ~88MiB memory**.
+
+Even scoped to just containers, cAdvisor is inherently one of the heavier monitoring sidecars — it does live `du`-style disk-usage scans per container on every housekeeping cycle (visible directly in its startup logs, 1-2+ seconds per container). If steady-state CPU still feels too high, `--disable_metrics=disk,diskIO` drops that specific collector — real feature tradeoff (loses per-container disk I/O panels), not applied by default.
+
 ## Known limitation
 
 OOM event detection is disabled (`Could not configure a source for OOM detection: open /dev/kmsg: operation not permitted`) — the mounted `/dev/kmsg` device isn't accessible without `privileged: true`, which wasn't added since basic per-container CPU/memory/network metrics (the actual goal here) don't need it. Not running privileged is the safer default.
