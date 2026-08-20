@@ -28,3 +28,12 @@ scrape_configs:
   - job_name: personal-pc-gpu
     static_configs:
       - targets: ['192.168.1.191:9888']
+
+  # Per-container CPU/memory/disk/network breakdown for homelab-server —
+  # node-exporter only sees host-wide totals, not which container is
+  # responsible for a spike. Reached by container name since both are on
+  # the `lab` network, not a host port (cadvisor isn't published to the
+  # host at all).
+  - job_name: cadvisor
+    static_configs:
+      - targets: ['cadvisor:8080']

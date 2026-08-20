@@ -49,3 +49,5 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [grafana](../grafana/README.md) — dashboards and alerting on top of prometheus
 - [lidarr](../lidarr/README.md) — music collection manager, syncs to deluge/sabnzbd via prowlarr
 - [navidrome](../navidrome/README.md) — self-hosted music server, Subsonic API
+- [beets](../beets/README.md) — music library organizer, AcoustID fingerprint matching + MusicBrainz
+- [cadvisor](../cadvisor/README.md) — per-container resource metrics for prometheus/grafana
