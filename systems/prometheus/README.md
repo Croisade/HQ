@@ -12,7 +12,8 @@ Time-series metrics database — scrapes [node-exporter](../node-exporter/README
 
 Defined in `config/prometheus.yml`:
 - `homelab-server` — [node-exporter](../node-exporter/README.md) at `192.168.1.101:9100`
-- **Personal PC — not wired up yet.** Needs `windows_exporter` installed and running on that machine first (outside this repo's reach entirely, has to happen on that machine directly), then uncommenting the target in `prometheus.yml` pointed at either its LAN IP or its [tailscale](../tailscale/README.md) IP.
+- `personal-pc` ("Pandora") — `windows_exporter` at `192.168.1.191:9182` (LAN IP, since Pandora is normally on this network — not a DHCP reservation yet, worth setting one on the [udm-se](../udm-se/README.md) so this doesn't drift. If Pandora ever roams off-LAN, switch this target to its [tailscale](../tailscale/README.md) IP, `100.107.65.7` as of 2026-08-19, instead).
+- `personal-pc-gpu` — Pandora's AMD Radeon RX 9070 XT, at `192.168.1.191:9888`. `windows_exporter` has no GPU collector at all, so this runs through a separate tool, [HardwareExporterWindows](https://github.com/naughtyGitCat/HardwareExporterWindows), which reads LibreHardwareMonitor sensors via the PawnIO driver and exposes them natively as Prometheus metrics. Key metrics: `hardware_gpu_load_gpu_core` (utilization %), `hardware_gpu_temperature_gpu_core`, `hardware_gpu_power_gpu_package`, `hardware_gpu_load_gpu_memory`.
 - **NAS — skipped for now.** TrueNAS has no native Prometheus support (Graphite only); would need either a `node_exporter` app installed through TrueNAS's own app catalog or a Graphite-to-Prometheus bridge, both of which require going through the TrueNAS UI directly, not something this repo can apply.
 
 ## Data

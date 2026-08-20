@@ -10,10 +10,21 @@ scrape_configs:
     static_configs:
       - targets: ['192.168.1.101:9100']
 
-  # Personal PC (windows_exporter, default port 9182) — not added yet, needs
-  # windows_exporter installed and running there first. Reachable either via
-  # its LAN IP or its tailscale IP (100.107.65.7 as of 2026-08-19, see
-  # tailscale status) if it's off the LAN when scraped. Uncomment once ready:
-  # - job_name: personal-pc
-  #   static_configs:
-  #     - targets: ['100.107.65.7:9182']
+  # Personal PC ("Pandora", windows_exporter). Uses the LAN IP since Pandora
+  # is normally on this network (192.168.1.191 as of 2026-08-19 — ideally a
+  # DHCP reservation on the udm-se so this doesn't drift; if Pandora ever
+  # roams off-LAN, switch to its tailscale IP instead, 100.107.65.7 as of
+  # 2026-08-19).
+  - job_name: personal-pc
+    static_configs:
+      - targets: ['192.168.1.191:9182']
+
+  # Pandora's GPU (AMD Radeon RX 9070 XT) — windows_exporter has no GPU
+  # collector at all, so this runs separately via HardwareExporterWindows
+  # (https://github.com/naughtyGitCat/HardwareExporterWindows), which reads
+  # LibreHardwareMonitor sensors through the PawnIO driver and exposes them
+  # as native Prometheus metrics on port 9888. Key metric for a utilization
+  # tile: hardware_gpu_load_gpu_core.
+  - job_name: personal-pc-gpu
+    static_configs:
+      - targets: ['192.168.1.191:9888']
