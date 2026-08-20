@@ -47,3 +47,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [node-exporter](../node-exporter/README.md) — host metrics for prometheus, host networking
 - [prometheus](../prometheus/README.md) — metrics database
 - [grafana](../grafana/README.md) — dashboards and alerting on top of prometheus
+- [lidarr](../lidarr/README.md) — music collection manager, syncs to deluge/sabnzbd via prowlarr

@@ -11,13 +11,14 @@ Indexer manager (`linuxserver/prowlarr`) — holds indexer credentials in one pl
 ## Indexers
 
 - **Nyaa.si** (`torrent`, category `Books`/`Literature`) — the actual reason this got deployed: [bindery](../bindery/README.md) needs a torrent source for Japanese light novels, and Nyaa is the standard index for that content, unlike generic public trackers. Prowlarr has a native definition for it — no Jackett/Cardigann layer needed.
-  - **Nyaa is known to rate-limit/ban aggressive automated traffic.** Throttled via the indexer's own `Query Limit`/`Grab Limit` fields — 50 queries/day, 20 grabs/day — rather than left unlimited.
-  - `radarr`'s and `sonarr`'s existing usenet indexers (NZBgeek, NZBNoob) were left as-is, configured directly in each app — not migrated into Prowlarr. Only Nyaa is Prowlarr-managed for now.
+  - **Nyaa is known to rate-limit/ban aggressive automated traffic.** Throttled via the indexer's own `Query Limit`/`Grab Limit` fields — originally 50 queries/day, 20 grabs/day; raised to 150 queries/day after heavy same-day API testing exhausted the original limit and started blocking real indexer-add validation calls from `sonarr`/`radarr`/`lidarr`.
+  - Nyaa's `Audio` category (`3000`) exists in its capability list but returns zero results in practice — it's an anime torrent site, not a real music source. Left enabled since it's harmless, but don't expect it to actually serve `lidarr`.
+- **NZBgeek**, **NZBNoob** (`usenet`) — originally configured **directly in `radarr` and `sonarr`**, bypassing Prowlarr entirely — a real gap in the "one place for indexer credentials" goal this service exists for. Migrated into Prowlarr proper when [lidarr](../lidarr/README.md) was deployed and needed the same two indexers; the direct duplicates were deleted from `radarr`/`sonarr` afterward so all three apps now get them from one synced source.
 
 ## Applications (sync targets)
 
-- `radarr`, `sonarr` — added as native Prowlarr Applications (`fullSync`), so Nyaa (and anything else added to Prowlarr later) auto-propagates into their own indexer lists. `syncCategories` scoped to each app's actual content (movies for radarr, TV + the `TV/Anime` subcategory for sonarr) so Nyaa doesn't show up for categories that don't make sense there.
-- `bindery` — **not** natively supported by Prowlarr (no Bindery application type exists yet). Wired manually instead: Prowlarr exposes a per-indexer Torznab feed at `http://prowlarr:9696/<indexerId>/api`, which was added directly as a `torznab`-type indexer inside Bindery's own Settings → Indexers. Functionally equivalent to what Prowlarr does for radarr/sonarr automatically — just a one-time manual step instead of an auto-sync, and it won't pick up additional indexers added to Prowlarr later without repeating this by hand.
+- `radarr`, `sonarr`, `lidarr` — added as native Prowlarr Applications (`fullSync`), so every indexer above auto-propagates into their own indexer lists. `syncCategories` scoped to each app's actual content (movies for radarr, TV + `TV/Anime` for sonarr, `Audio` + subcategories for lidarr) so an indexer doesn't show up for categories that don't make sense there.
+- `bindery` — **not** natively supported by Prowlarr (no Bindery application type exists yet). Wired manually instead: Prowlarr exposes a per-indexer Torznab feed at `http://prowlarr:9696/<indexerId>/api`, which was added directly as a `torznab`-type indexer inside Bindery's own Settings → Indexers. Functionally equivalent to what Prowlarr does for radarr/sonarr/lidarr automatically — just a one-time manual step instead of an auto-sync, and it won't pick up additional indexers added to Prowlarr later without repeating this by hand.
 
 ## Data
 
