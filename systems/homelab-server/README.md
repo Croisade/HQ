@@ -48,3 +48,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [prometheus](../prometheus/README.md) — metrics database
 - [grafana](../grafana/README.md) — dashboards and alerting on top of prometheus
 - [lidarr](../lidarr/README.md) — music collection manager, syncs to deluge/sabnzbd via prowlarr
+- [navidrome](../navidrome/README.md) — self-hosted music server, Subsonic API

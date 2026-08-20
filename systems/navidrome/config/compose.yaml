@@ -1,0 +1,30 @@
+name: navidrome
+
+services:
+  navidrome:
+    image: deluan/navidrome:latest
+    container_name: navidrome
+    user: "1000:1000"
+    networks:
+      - lab
+    environment:
+      - ND_SCANSCHEDULE=1h
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+      - ND_BASEURL=
+    volumes:
+      - ../data:/data
+      - /mnt/docker-data/media/music:/music:ro
+    ports:
+      - '38087:4533'
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.music.rule=Host(`music.thegarden`)
+      - traefik.http.routers.music.entrypoints=websecure
+      - traefik.http.routers.music.tls=true
+      - traefik.http.services.music.loadbalancer.server.port=4533
+
+networks:
+  lab:
+    external: true

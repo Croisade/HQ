@@ -8,7 +8,7 @@ Reverse proxy — routes `*.thegarden` subdomains to the right service by contai
 
 - Dashboard: `https://traefik.thegarden`
 
-Claims host port `80`. [pihole](../pihole/README.md) used to bind host port `80` for its own web UI — that's been removed in favor of routing through Traefik as `pihole.thegarden` instead, so there's no conflict.
+Claims host ports `80` and `443` (`0.0.0.0` bind, both — covers every interface on this host, not just the LAN one). [pihole](../pihole/README.md) used to bind host port `80` for its own web UI — that's been removed in favor of routing through Traefik as `pihole.thegarden` instead, so there's no conflict. The `443` bind being interface-wide is why [tailscale](../tailscale/README.md)'s own HTTPS serving (`tailscale serve`) can't use port 443 — see [navidrome](../navidrome/README.md) for the workaround (a non-standard port instead).
 
 Pinned to `v3.7.10`, not the `v3.1` this was originally scaffolded with — `v3.1`'s bundled Docker client hardcodes API `1.24`, which this host's Docker daemon (29.7.1, API 1.55) refuses as too old, so the Docker provider retry-looped forever and never registered any routes.
 
@@ -40,6 +40,7 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | `prometheus.thegarden` | [prometheus](../prometheus/README.md) |
 | `grafana.thegarden` | [grafana](../grafana/README.md) |
 | `lidarr.thegarden` | [lidarr](../lidarr/README.md) |
+| `music.thegarden` | [navidrome](../navidrome/README.md) |
 
 Every router above is HTTPS-only (`entrypoints=websecure` + `tls=true`), via the mkcert internal CA — see [decisions.md](decisions.md). This isn't optional: the `web` entrypoint (`:80`) has a **global redirect to `websecure`** (`--entrypoints.web.http.redirections.entrypoint.to=websecure`), so any router left on plain `web` becomes unreachable by hostname — the redirect sends the browser to `:443`, where there's no matching router, and Traefik 404s. Hit this directly: 8 services were deployed with `entrypoints=web`-only routers and all 404'd until switched to `websecure`+`tls=true`. **Any new `*.thegarden` service must use `websecure`+`tls=true` from the start** (and the mkcert leaf cert needs the new hostname added as a SAN — see [decisions.md](decisions.md)).
 
