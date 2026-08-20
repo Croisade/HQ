@@ -6,6 +6,10 @@ services:
     container_name: cadvisor
     command:
       - '--docker_only=true'
+      # default disabled set + disk,diskIO — the disk-usage (`du`-style)
+      # scan collectors were the source of cadvisor's own periodic CPU
+      # bursts (3.5-15%+), and disk I/O metrics aren't needed here.
+      - '--disable_metrics=advtcp,cpu_topology,cpuset,hugetlb,memory_numa,process,referenced_memory,resctrl,sched,tcp,udp,disk,diskIO'
     networks:
       - lab
     volumes:

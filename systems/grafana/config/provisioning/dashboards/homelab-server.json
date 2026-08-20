@@ -216,26 +216,8 @@
     },
     {
       "type": "timeseries",
-      "title": "Per-Container Disk I/O (top 10, read+write combined)",
-      "gridPos": { "h": 10, "w": 24, "x": 0, "y": 34 },
-      "id": 10,
-      "targets": [
-        {
-          "expr": "topk(10, sum(rate(container_fs_reads_bytes_total{name!=\"\"}[5m]) + rate(container_fs_writes_bytes_total{name!=\"\"}[5m])) by (name))",
-          "legendFormat": "{{name}}",
-          "refId": "A"
-        }
-      ],
-      "fieldConfig": {
-        "defaults": { "unit": "Bps", "min": 0 },
-        "overrides": []
-      },
-      "options": { "legend": { "displayMode": "table", "placement": "right", "calcs": ["mean", "max"] }, "tooltip": { "mode": "multi" } }
-    },
-    {
-      "type": "timeseries",
       "title": "NAS Disk Free over time",
-      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 44 },
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 34 },
       "id": 9,
       "targets": [
         {
