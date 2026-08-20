@@ -1,0 +1,17 @@
+# Real config lives at data/config.yaml (gitignored — holds a real AcoustID
+# API key). Copy this file there and fill in acoustid_apikey to get started;
+# get a free key at https://acoustid.org/new-application.
+directory: /music
+library: /config/library.db
+
+import:
+  write: yes
+  copy: no
+  move: yes
+  incremental: yes
+  log: /config/import.log
+
+plugins: chroma musicbrainz
+
+chroma:
+  acoustid_apikey: CHANGE_ME

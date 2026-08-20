@@ -1,0 +1,20 @@
+name: beets
+
+services:
+  beets:
+    image: lscr.io/linuxserver/beets:latest
+    container_name: beets
+    networks:
+      - lab
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ../data:/config
+      - /mnt/docker-data/media/music:/music
+    restart: unless-stopped
+
+networks:
+  lab:
+    external: true
