@@ -1,0 +1,237 @@
+{
+  "annotations": { "list": [] },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "CPU Load",
+      "gridPos": { "h": 5, "w": 4, "x": 0, "y": 0 },
+      "id": 1,
+      "targets": [{ "expr": "hardware_cpu_load_cpu_total{name=\"AMD Ryzen 7 3700X\"}", "legendFormat": "CPU %", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent", "min": 0, "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "yellow", "value": 70 }, { "color": "red", "value": 90 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "area", "justifyMode": "auto" }
+    },
+    {
+      "type": "stat",
+      "title": "GPU Load",
+      "gridPos": { "h": 5, "w": 4, "x": 4, "y": 0 },
+      "id": 2,
+      "targets": [{ "expr": "hardware_gpu_load_gpu_core{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "GPU %", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent", "min": 0, "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "yellow", "value": 70 }, { "color": "red", "value": 90 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "area", "justifyMode": "auto" }
+    },
+    {
+      "type": "stat",
+      "title": "Memory",
+      "gridPos": { "h": 5, "w": 4, "x": 8, "y": 0 },
+      "id": 3,
+      "targets": [{ "expr": "hardware_memory_load_memory{name=\"Total Memory\"}", "legendFormat": "Memory %", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent", "min": 0, "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "yellow", "value": 75 }, { "color": "red", "value": 90 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "area", "justifyMode": "auto" }
+    },
+    {
+      "type": "stat",
+      "title": "CPU Temp",
+      "gridPos": { "h": 5, "w": 4, "x": 12, "y": 0 },
+      "id": 4,
+      "targets": [{ "expr": "hardware_cpu_temperature_core{name=\"AMD Ryzen 7 3700X\"}", "legendFormat": "°C", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius", "min": 0,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "yellow", "value": 75 }, { "color": "red", "value": 90 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "area", "justifyMode": "auto" }
+    },
+    {
+      "type": "stat",
+      "title": "GPU Hot Spot Temp",
+      "description": "Hot spot, not core temp — the number that actually predicts AMD GPU throttling.",
+      "gridPos": { "h": 5, "w": 4, "x": 16, "y": 0 },
+      "id": 5,
+      "targets": [{ "expr": "hardware_gpu_temperature_gpu_hot_spot{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "°C", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius", "min": 0,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "yellow", "value": 85 }, { "color": "red", "value": 100 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "area", "justifyMode": "auto" }
+    },
+    {
+      "type": "stat",
+      "title": "Drives Failing SMART",
+      "description": "Should always read 0. Any non-zero here means a drive's own self-assessment failed — act on it, don't wait for a graph.",
+      "gridPos": { "h": 5, "w": 4, "x": 20, "y": 0 },
+      "id": 6,
+      "targets": [{ "expr": "count(hardware_storage_smart_health_passed == 0) OR vector(0)", "legendFormat": "Failing", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short", "min": 0,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "red", "value": 1 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false }, "orientation": "auto", "textMode": "auto", "colorMode": "background", "graphMode": "none", "justifyMode": "auto" }
+    },
+
+    { "type": "row", "title": "CPU", "gridPos": { "h": 1, "w": 24, "x": 0, "y": 5 }, "id": 10, "collapsed": false, "panels": [] },
+    {
+      "type": "timeseries",
+      "title": "CPU Load over time",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 6 },
+      "id": 11,
+      "targets": [{ "expr": "hardware_cpu_load_cpu_total{name=\"AMD Ryzen 7 3700X\"}", "legendFormat": "CPU %", "refId": "A" }],
+      "fieldConfig": { "defaults": { "unit": "percent", "min": 0, "max": 100 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "single" } }
+    },
+    {
+      "type": "timeseries",
+      "title": "CPU Temp & Power over time",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 6 },
+      "id": 12,
+      "targets": [
+        { "expr": "hardware_cpu_temperature_core{name=\"AMD Ryzen 7 3700X\"}", "legendFormat": "Temp °C", "refId": "A" },
+        { "expr": "hardware_cpu_power_package{name=\"AMD Ryzen 7 3700X\"}", "legendFormat": "Power W", "refId": "B" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "short", "min": 0 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } }
+    },
+    {
+      "type": "timeseries",
+      "title": "CPU Clock over time",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 6 },
+      "id": 13,
+      "targets": [{ "expr": "hardware_cpu_clock_cores{name=\"AMD Ryzen 7 3700X\",sensor_info=\"average\"}", "legendFormat": "MHz", "refId": "A" }],
+      "fieldConfig": { "defaults": { "unit": "short", "min": 0 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "single" } }
+    },
+
+    { "type": "row", "title": "GPU", "gridPos": { "h": 1, "w": 24, "x": 0, "y": 14 }, "id": 20, "collapsed": false, "panels": [] },
+    {
+      "type": "timeseries",
+      "title": "GPU Load over time",
+      "gridPos": { "h": 8, "w": 8, "x": 0, "y": 15 },
+      "id": 21,
+      "targets": [
+        { "expr": "hardware_gpu_load_gpu_core{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "Core %", "refId": "A" },
+        { "expr": "hardware_gpu_load_gpu_memory{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "VRAM %", "refId": "B" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "percent", "min": 0, "max": 100 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } }
+    },
+    {
+      "type": "timeseries",
+      "title": "GPU Temp over time",
+      "description": "Core vs. hot spot — hot spot is what actually predicts throttling on AMD GPUs.",
+      "gridPos": { "h": 8, "w": 8, "x": 8, "y": 15 },
+      "id": 22,
+      "targets": [
+        { "expr": "hardware_gpu_temperature_gpu_core{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "Core °C", "refId": "A" },
+        { "expr": "hardware_gpu_temperature_gpu_hot_spot{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "Hot Spot °C", "refId": "B" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "celsius", "min": 0 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } }
+    },
+    {
+      "type": "timeseries",
+      "title": "GPU Power over time",
+      "gridPos": { "h": 8, "w": 8, "x": 16, "y": 15 },
+      "id": 23,
+      "targets": [{ "expr": "hardware_gpu_power_gpu_package{name=\"AMD Radeon RX 9070 XT\"}", "legendFormat": "Power W", "refId": "A" }],
+      "fieldConfig": { "defaults": { "unit": "watt", "min": 0 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "single" } }
+    },
+
+    { "type": "row", "title": "Storage", "gridPos": { "h": 1, "w": 24, "x": 0, "y": 23 }, "id": 30, "collapsed": false, "panels": [] },
+    {
+      "type": "bargauge",
+      "title": "Disk Usage by Drive",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "id": 31,
+      "targets": [{ "expr": "hardware_storage_load_used_space", "legendFormat": "{{name}}", "refId": "A" }],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent", "min": 0, "max": 100,
+          "thresholds": { "mode": "absolute", "steps": [
+            { "color": "green", "value": null }, { "color": "yellow", "value": 80 }, { "color": "red", "value": 95 }
+          ]}
+        },
+        "overrides": []
+      },
+      "options": { "orientation": "horizontal", "displayMode": "gradient", "showUnfilled": true, "reduceOptions": { "calcs": ["lastNotNull"], "fields": "", "values": false } }
+    },
+    {
+      "type": "timeseries",
+      "title": "Drive Temps over time",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
+      "id": 32,
+      "targets": [{ "expr": "hardware_storage_smart_temperature_celsius", "legendFormat": "{{model}}", "refId": "A" }],
+      "fieldConfig": { "defaults": { "unit": "celsius", "min": 0 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } }
+    },
+
+    { "type": "row", "title": "Network", "gridPos": { "h": 1, "w": 24, "x": 0, "y": 32 }, "id": 40, "collapsed": false, "panels": [] },
+    {
+      "type": "timeseries",
+      "title": "Network Throughput (Ethernet 2) over time",
+      "description": "Filtered to the real physical adapter — HardwareExporterWindows also reports several driver-layer pseudo-adapters (QoS Packet Scheduler, WFP filters) that duplicate the same traffic.",
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 33 },
+      "id": 41,
+      "targets": [
+        { "expr": "hardware_network_download_speed_bytes_per_second{name=\"Ethernet 2\"}", "legendFormat": "Download", "refId": "A" },
+        { "expr": "hardware_network_upload_speed_bytes_per_second{name=\"Ethernet 2\"}", "legendFormat": "Upload", "refId": "B" }
+      ],
+      "fieldConfig": { "defaults": { "unit": "Bps", "min": 0 }, "overrides": [] },
+      "options": { "legend": { "displayMode": "list", "placement": "bottom" }, "tooltip": { "mode": "multi" } }
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "tags": ["pandora", "personal-pc"],
+  "templating": { "list": [] },
+  "time": { "from": "now-6h", "to": "now" },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Pandora",
+  "uid": "add6ssp",
+  "version": 1,
+  "weekStart": ""
+}
