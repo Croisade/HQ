@@ -1,0 +1,22 @@
+name: watchtower
+
+services:
+  watchtower:
+    image: ghcr.io/nicholas-fedor/watchtower:latest
+    container_name: watchtower
+    networks:
+      - lab
+    environment:
+      - TZ=America/New_York
+      - WATCHTOWER_MONITOR_ONLY=true
+      - WATCHTOWER_SCHEDULE=0 0 9 * * *
+      - WATCHTOWER_NOTIFICATIONS=shoutrrr
+      - WATCHTOWER_NOTIFICATION_URL=ntfy://ntfy/docker-updates?scheme=http
+      - WATCHTOWER_NOTIFICATION_TEMPLATE={{range .}}{{.Message}}{{println}}{{end}}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
+
+networks:
+  lab:
+    external: true
