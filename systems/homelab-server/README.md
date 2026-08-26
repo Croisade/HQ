@@ -51,3 +51,4 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [navidrome](../navidrome/README.md) — self-hosted music server, Subsonic API
 - [beets](../beets/README.md) — music library organizer, AcoustID fingerprint matching + MusicBrainz
 - [cadvisor](../cadvisor/README.md) — per-container resource metrics for prometheus/grafana
+- [ntfy](../ntfy/README.md) — self-hosted push notifications, used by watchtower and grafana alerting
