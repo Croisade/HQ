@@ -12,7 +12,8 @@ services:
       - WATCHTOWER_SCHEDULE=0 0 9 * * *
       - WATCHTOWER_NOTIFICATIONS=shoutrrr
       - WATCHTOWER_NOTIFICATION_URL=ntfy://ntfy/docker-updates?scheme=http
-      - WATCHTOWER_NOTIFICATION_TEMPLATE={{range .}}{{.Message}}{{println}}{{end}}
+      - WATCHTOWER_NOTIFICATION_REPORT=true
+      - WATCHTOWER_NOTIFICATION_TEMPLATE={{if .Report.Stale}}Updates available:{{range .Report.Stale}}{{println}}- {{.Name}} ({{.ImageName}}){{end}}{{else}}All containers up to date{{end}}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     restart: unless-stopped
