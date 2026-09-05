@@ -6,6 +6,7 @@ services:
     container_name: matter-server
     restart: unless-stopped
     network_mode: host
+    command: --storage-path /data --primary-interface enp3s0
     volumes:
       - ../data:/data
       - /run/dbus:/run/dbus:ro
