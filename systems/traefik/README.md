@@ -42,8 +42,22 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | `lidarr.thegarden` | [lidarr](../lidarr/README.md) |
 | `music.thegarden` | [navidrome](../navidrome/README.md) |
 | `ntfy.thegarden` | [ntfy](../ntfy/README.md) |
+| `auth.thegarden` | [pocket-id](../pocket-id/README.md) |
+| `budgetkay.thegarden` | [actual-budget-akayla](../actual-budget-akayla/README.md) |
 
 Every router above is HTTPS-only (`entrypoints=websecure` + `tls=true`), via the mkcert internal CA — see [decisions.md](decisions.md). This isn't optional: the `web` entrypoint (`:80`) has a **global redirect to `websecure`** (`--entrypoints.web.http.redirections.entrypoint.to=websecure`), so any router left on plain `web` becomes unreachable by hostname — the redirect sends the browser to `:443`, where there's no matching router, and Traefik 404s. Hit this directly: 8 services were deployed with `entrypoints=web`-only routers and all 404'd until switched to `websecure`+`tls=true`. **Any new `*.thegarden` service must use `websecure`+`tls=true` from the start** (and the mkcert leaf cert needs the new hostname added as a SAN — see [decisions.md](decisions.md)).
+
+**Adding a hostname to the cert**: the CA root lives at `data/mkcert-ca/` (gitignored) — *not* mkcert's default `~/.local/share/mkcert`. Omitting `CAROOT` makes mkcert silently generate a brand-new, untrusted CA instead of reusing the one every device already trusts, which breaks TLS trust for every `*.thegarden` hostname at once, not just the new one. Regenerate from `data/certs/` with the full existing SAN list plus the new name:
+```
+CAROOT=/home/jamal/thelab/systems/traefik/data/mkcert-ca mkcert \
+  -cert-file thegarden.pem -key-file thegarden-key.pem \
+  thegarden pihole.thegarden torrents.thegarden usenet.thegarden tv.thegarden \
+  movies.thegarden requests.thegarden media.thegarden home.thegarden recipes.thegarden \
+  budget.thegarden traefik.thegarden assistant.thegarden glances.thegarden books.thegarden \
+  indexers.thegarden photos.thegarden uptime.thegarden prometheus.thegarden grafana.thegarden \
+  lidarr.thegarden music.thegarden ntfy.thegarden auth.thegarden budgetkay.thegarden <new-hostname>
+```
+Then **restart the `traefik` container** — `--providers.file.watch=true` only watches `config/dynamic/` for changes, not the cert/key files referenced from it, so an in-place edit alone isn't picked up.
 
 ## Data
 

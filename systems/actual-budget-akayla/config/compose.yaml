@@ -1,0 +1,28 @@
+name: actual-budget-akayla
+
+services:
+  actual-budget-akayla:
+    image: docker.io/actualbudget/actual-server:latest
+    container_name: actual-budget-akayla
+    networks:
+      - lab
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_EXTRA_CA_CERTS=/mkcert-rootCA.pem
+    ports:
+      - '5007:5006'
+    volumes:
+      - ../data:/data
+      - ../../traefik/data/mkcert-ca/rootCA.pem:/mkcert-rootCA.pem:ro
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.budgetkay.rule=Host(`budgetkay.thegarden`)
+      - traefik.http.routers.budgetkay.entrypoints=websecure
+      - traefik.http.routers.budgetkay.tls=true
+      - traefik.http.services.budgetkay.loadbalancer.server.port=5006
+
+networks:
+  lab:
+    external: true

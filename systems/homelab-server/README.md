@@ -53,3 +53,5 @@ Per-service `data/` stays on this host's local disk rather than the NAS — see 
 - [cadvisor](../cadvisor/README.md) — per-container resource metrics for prometheus/grafana
 - [ntfy](../ntfy/README.md) — self-hosted push notifications, used by watchtower and grafana alerting
 - [watchtower](../watchtower/README.md) — checks for container image updates, notifies via ntfy (monitor-only, no auto-updates)
+- [pocket-id](../pocket-id/README.md) — passkey-only OIDC provider, backs actual-budget and actual-budget-akayla logins
+- [actual-budget-akayla](../actual-budget-akayla/README.md) — second, fully separate Actual instance for Akayla's own budget/SimpleFIN connection
