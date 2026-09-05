@@ -7,10 +7,15 @@ services:
     networks:
       - lab
     restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_EXTRA_CA_CERTS=/mkcert-rootCA.pem
     ports:
       - '5006:5006'
     volumes:
       - ../data:/data
+      - ../../traefik/data/mkcert-ca/rootCA.pem:/mkcert-rootCA.pem:ro
     labels:
       - traefik.enable=true
       - traefik.http.routers.budget.rule=Host(`budget.thegarden`)
