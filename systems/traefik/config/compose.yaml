@@ -18,6 +18,7 @@ services:
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
       - --entrypoints.websecure.address=:443
       - --api.dashboard=true
+      - --accesslog=true
     ports:
       - '80:80'
       - '443:443'
