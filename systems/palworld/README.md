@@ -1,6 +1,6 @@
 # palworld
 
-Status: Operational
+Status: Retired
 
 Host: [homelab-server](../homelab-server/README.md)
 
