@@ -1,6 +1,6 @@
 # hdhomerun
 
-Status: Planned
+Status: Operational
 
 Physical appliance (SiliconDust HDHomeRun Flex Duo) — network-attached OTA tuner, feeding live TV into [jellyfin](../jellyfin/README.md)'s Live TV feature. No `config/` here; nothing about it is IaC-able — it's a physical box with its own local web config and a Jellyfin-side tuner integration, not a container this repo deploys.
 
@@ -22,6 +22,6 @@ One box, one coax cable, one ethernet cable. The tuner does its own ATSC demodul
 
 **Survives SiliconDust disappearing, mostly**: live viewing is local-network-only once configured (no cloud dependency for day-to-day use) — confirmed via the 2019 precedent where SiliconDust discontinued their cloud DVR/guide product ("Premium") and the tuner hardware kept working for live viewing regardless. Initial setup does need internet once. Not using SiliconDust's own guide/DVR service here anyway (see decisions.md), so exposure to their continued existence is about as low as this product category gets.
 
-## Next steps
+## History
 
-See [plan.md](plan.md).
+See [build-log.md](build-log.md).
