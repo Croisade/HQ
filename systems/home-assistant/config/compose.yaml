@@ -6,6 +6,14 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     restart: unless-stopped
     network_mode: host
+    # Bluetooth: HA talks to the host's BlueZ over D-Bus and needs raw BT access.
+    # The default docker AppArmor profile blocks D-Bus calls, so it is relaxed here.
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt:
+      - apparmor=unconfined
     volumes:
       - ../data:/config
       - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
