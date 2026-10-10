@@ -17,3 +17,39 @@ services:
       - ../data:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
+
+  # Z-Wave: zwave-js-ui owns the Zooz 800 stick and exposes a websocket on :3000.
+  # UI is served at https://zwave.thegarden via Traefik (no published UI port).
+  # HA (host network) connects to ws://localhost:3010 via the Z-Wave JS integration.
+  # S0/S2 keys live in the zwave-config volume, not in the repo.
+  zwave-js-ui:
+    container_name: zwave-js-ui
+    image: zwavejs/zwave-js-ui:latest
+    restart: unless-stopped
+    tty: true
+    stop_signal: SIGINT
+    environment:
+      - SESSION_SECRET=${ZWAVE_SESSION_SECRET:?set in .env}
+      - TZ=${TZ_NAME:?set in .env}
+    devices:
+      - ${ZWAVE_DEVICE:?set in .env}:/dev/zwave
+    ports:
+      - "3010:3000" # websocket server for HA (3000 is Grafana, 3001 is Uptime Kuma)
+    volumes:
+      - zwave-config:/usr/src/app/store
+    networks:
+      - lab
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=lab
+      - traefik.http.routers.zwave.rule=Host(`zwave.thegarden`)
+      - traefik.http.routers.zwave.entrypoints=websecure
+      - traefik.http.routers.zwave.tls=true
+      - traefik.http.services.zwave.loadbalancer.server.port=8091
+
+volumes:
+  zwave-config:
+
+networks:
+  lab:
+    external: true
