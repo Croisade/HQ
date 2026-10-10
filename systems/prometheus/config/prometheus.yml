@@ -10,14 +10,13 @@ scrape_configs:
     static_configs:
       - targets: ['192.168.1.101:9100']
 
-  # Personal PC ("Pandora", windows_exporter). Uses the LAN IP since Pandora
-  # is normally on this network (192.168.1.191 as of 2026-08-19 — ideally a
-  # DHCP reservation on the udm-se so this doesn't drift; if Pandora ever
-  # roams off-LAN, switch to its tailscale IP instead, 100.107.65.7 as of
-  # 2026-08-19).
+  # Personal PC ("Pandora", windows_exporter). Uses the LAN IP, now a DHCP
+  # reservation on the udm-se (192.168.1.23 as of 2026-10-02), so this
+  # shouldn't drift again. If Pandora ever roams off-LAN, switch to its
+  # tailscale IP instead, 100.107.65.7 as of 2026-08-19.
   - job_name: personal-pc
     static_configs:
-      - targets: ['192.168.1.191:9182']
+      - targets: ['192.168.1.23:9182']
 
   # Pandora's GPU (AMD Radeon RX 9070 XT) — windows_exporter has no GPU
   # collector at all, so this runs separately via HardwareExporterWindows
@@ -27,7 +26,7 @@ scrape_configs:
   # tile: hardware_gpu_load_gpu_core.
   - job_name: personal-pc-gpu
     static_configs:
-      - targets: ['192.168.1.191:9888']
+      - targets: ['192.168.1.23:9888']
 
   # Per-container CPU/memory/disk/network breakdown for homelab-server —
   # node-exporter only sees host-wide totals, not which container is
