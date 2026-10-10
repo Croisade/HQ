@@ -1,5 +1,17 @@
 # home-assistant — notes
 
+## 2026-10-10
+
+Added **Z-Wave** with a Zooz 800-series USB stick, run as a separate `zwave-js-ui` container in the same compose project (HA stays on host networking).
+
+- **Why a separate container:** zwave-js-ui owns the stick and the S0/S2 security keys, and HA connects to its websocket. Restarting HA doesn't touch the Z-Wave network.
+- **Access:** UI at `https://zwave.thegarden` through Traefik (no published UI port). The websocket is published on host port 3010 for HA's Z-Wave JS integration (3000 and 3001 were taken by Grafana and Uptime Kuma).
+- **Config:** stick path, session secret and timezone come from `config/.env` (gitignored; `.env.example` lists the variables). State lives in the `zwave-config` Docker volume, including the keys, so back those up.
+- **Traefik cert:** `zwave.thegarden` had to be added to the mkcert SAN list and Traefik restarted (see the Traefik README).
+- **First device:** a Z-Wave smart lock, paired with Smart Start (DSK). The server's stick could not hear its Smart Start announcement, so it was paired by running zwave-js-ui on a laptop with the same S0/S2 keys, then moving the stick back. The server re-interviewed the node; a battery lock falls asleep mid-interview, so keep it awake (keypad) and re-interview until it completes. Link quality afterward: RSSI about -78 dBm direct, no repeaters, against a noise floor around -105 dBm. Usable, with limited margin.
+- **Pitfalls:** moving the stick between machines only works if the keys match exactly. On Windows the serial port is a COM port, not the container's `/dev/zwave`.
+- **Disk:** `/` hit 100% while setting this up. Pruning dangling images freed 6.8 GB (94% used afterward). Jellyfin config (15 GB) and the Prometheus WAL (4.8 GB) are the next candidates.
+
 ## 2026-10-07
 
 Added a **Heat** tab to the Overview dashboard, with charts of the Nest thermostat's history and an outdoor temperature to compare against.

@@ -39,6 +39,7 @@ Traefik only routes traffic that already arrives addressed to a `*.thegarden` ho
 | `uptime.thegarden` | [uptime-kuma](../uptime-kuma/README.md) |
 | `prometheus.thegarden` | [prometheus](../prometheus/README.md) |
 | `grafana.thegarden` | [grafana](../grafana/README.md) |
+| `zwave.thegarden` | [zwave-js-ui](../home-assistant/README.md) (Z-Wave stick UI) |
 | `lidarr.thegarden` | [lidarr](../lidarr/README.md) |
 | `music.thegarden` | [navidrome](../navidrome/README.md) |
 | `ntfy.thegarden` | [ntfy](../ntfy/README.md) |
@@ -54,7 +55,7 @@ CAROOT=/home/jamal/thelab/systems/traefik/data/mkcert-ca mkcert \
   thegarden pihole.thegarden torrents.thegarden usenet.thegarden tv.thegarden \
   movies.thegarden requests.thegarden media.thegarden home.thegarden recipes.thegarden \
   budget.thegarden traefik.thegarden assistant.thegarden glances.thegarden books.thegarden \
-  indexers.thegarden photos.thegarden uptime.thegarden prometheus.thegarden grafana.thegarden \
+  indexers.thegarden photos.thegarden uptime.thegarden prometheus.thegarden grafana.thegarden zwave.thegarden \
   lidarr.thegarden music.thegarden ntfy.thegarden auth.thegarden budgetkay.thegarden <new-hostname>
 ```
 Then **restart the `traefik` container** — `--providers.file.watch=true` only watches `config/dynamic/` for changes, not the cert/key files referenced from it, so an in-place edit alone isn't picked up.
